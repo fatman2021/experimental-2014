@@ -1,0 +1,13 @@
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=virtual/libusb:0 cxx? ( dev-libs/boost ) python? ( dev-lang/python ) doc? ( app-doc/doxygen ) sys-devel/make >=dev-util/cmake-2.8.9 userland_GNU? ( >=sys-apps/findutils-4.4.0 )
+DESCRIPTION=Userspace access to FTDI USB interface chips
+EAPI=2
+HOMEPAGE=http://www.intra2net.com/en/developer/libftdi/
+IUSE=cxx doc examples python
+KEYWORDS=~amd64 ~arm ~ppc ~ppc64 ~sparc ~x86
+LICENSE=LGPL-2
+RDEPEND=virtual/libusb:0 cxx? ( dev-libs/boost ) python? ( dev-lang/python )
+SLOT=0
+SRC_URI=http://www.intra2net.com/en/developer/libftdi/download/libftdi-0.20.tar.gz
+_eclasses_=cmake-utils	50a0f8ec01542e7e35e36a41264aeb9a	eutils	025442f2eecab39ad0b4e541b6e142af	flag-o-matic	32bd61b45c2f57e468b4ee7311fec8f5	multilib	fac675dcccf94392371a6abee62d909f	python	46d9f0382a194b2c30ac61862799b58c	toolchain-funcs	48b38a216afb92db6314d6c3187abea3
+_md5_=dad9db60b1d81928ccc5332a591ed0aa
