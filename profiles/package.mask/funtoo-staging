@@ -1,13 +1,5 @@
 # Keep the most recent masks in a reverse chrono order
 # newest on top
-# Oleg Vinichenko (23 June 2014)
-# update fcron-3.1.3, with various fixes, fix to fcrondyn segfault, ebuild masked for testing to avoid breaking (if any)
-# production systems.
->=sys-process/fcron-3.1.3 
-
-# Daniel Robbins (15 June 2014)
-# masked for testing
->=www-servers/nginx-1.7.1
 
 # Oleg Vinichenko (2 June 2014), add beta and unstable versions of google-chrome as requested in FL-1258 and FL-1254
 # ebuilds are masked
@@ -33,8 +25,3 @@
 # Daniel Robbins (28 Sep 2013)
 # masked for testing
 =sys-cluster/vzctl-4.5.1*
- 
-# Oleg VInichenko (15 Sep 2013)
-# perl-5.18.1, masked for testing, FL-709
->=dev-lang/perl-5.18.1 
-
