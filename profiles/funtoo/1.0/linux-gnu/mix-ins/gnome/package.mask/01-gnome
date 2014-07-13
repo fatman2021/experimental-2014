@@ -151,8 +151,9 @@ games-puzzle/gnome-sudoku
 >=x11-libs/gdk-pixbuf-2.29
 >sci-geosciences/geocode-glib-0.99.1
 >app-misc/geoclue-0.12.99
->media-libs/libquvi-0.4.1
->media-libs/libquvi-scripts-0.4.21
+# I don't think we need this
+#>media-libs/libquvi-0.4.1
+#>media-libs/libquvi-scripts-0.4.21
 >app-editors/gedit-plugins-3.6.1-r1
 >app-crypt/libsecret-0.15-r1
 >=dev-libs/json-glib-0.17
@@ -164,5 +165,5 @@ games-puzzle/gnome-sudoku
 >sys-apps/accountsservice-0.6.35
 >dev-libs/libical-0.48-r2
 >sys-devel/bison-2.7.1
->sys-libs/tdb-1.2.13
+>sys-libs/tdb-1.2.13-r1
 >=sys-power/upower-0.9.24

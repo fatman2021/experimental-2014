@@ -2335,6 +2335,7 @@ dev-vcs/bzr-gtk:gconf - Enable GConf support
 dev-vcs/bzr-gtk:gpg - Support signing with GnuPG.
 dev-vcs/bzr-gtk:nautilus - Integrate with Nautilus file manager
 dev-vcs/bzr-gtk:sourceview - Enable GtkSourceView support
+dev-vcs/cssc:valgrind - Enable usage of dev-util/valgrind in tests
 dev-vcs/cvs:server - Enable server support
 dev-vcs/cvs2svn:bazaar - Support for dev-vcs/bzr
 dev-vcs/fossil:json - Enable the JSON API of Fossil's wiki
@@ -3551,7 +3552,6 @@ media-libs/x264:interlaced - enable interlaced encoding support, this can decrea
 media-libs/x264:opencl - Add support for OpenCL.
 media-libs/x264:pic - disable optimized assembly code that is not PIC friendly
 media-libs/x265:10bit - Set output bit depth to 10.
-media-libs/xine-lib:avformat - Enables libformat support for reading and writing various media containers. libavformat is part of FFmpeg.
 media-libs/xine-lib:bluray - Enable playback of Blu-ray filesystems using media-libs/libbluray
 media-libs/xine-lib:dxr3 - Enable support for DXR3 mpeg acceleration cards.
 media-libs/xine-lib:flac - Build the media-libs/flac based FLAC demuxer and decoder. This flag is not needed for playing FLAC content, neither standalone nor in Ogg container (OggFLAC), but might have better support for exotic features like 24-bit samples or 96kHz sample rates.
@@ -4237,6 +4237,7 @@ media-video/mpv:doc-pdf - Build documentation in pdf format
 media-video/mpv:dvdnav - Enable support for DVD navigation using media-libs/libdvdnav
 media-video/mpv:enca - Enables support for charset discovery and conversion using app-i18n/enca
 media-video/mpv:libguess - Enables support for charset discovery and conversion using app-i18n/libguess
+media-video/mpv:libmpv - Build mpv shared library
 media-video/mpv:luajit - Use dev-lang/luajit instead of dev-lang/lua
 media-video/mpv:mpg123 - Enable support for mp3 decoding over media-sound/mpg123 instead of relying on ffmpeg support.
 media-video/mpv:postproc - Enable image post-processing via libpostproc
@@ -4405,7 +4406,6 @@ net-analyzer/icinga:web - Adds generic web interface support
 net-analyzer/icinga-web:pnp - Enables pnp4nagios integration
 net-analyzer/icinga2:classicui - Adds support for the old interface
 net-analyzer/icinga2:plugins - Adds support for nagios plugins
-net-analyzer/lilac:nmap - Installs nmap which can be used to automatically discover devices to monitor.
 net-analyzer/linkchecker:bookmarks - Mozilla Bookmark parsing
 net-analyzer/linkchecker:login - login form submission
 net-analyzer/linkchecker:nagios - Install nagios cli plugin
@@ -5966,7 +5966,6 @@ sci-chemistry/gamess:neo - Enable NEO for nuclear basis support
 sci-chemistry/gamess:pax_kernel - Make this package work on PAX kernels
 sci-chemistry/gamess:qmmm-tinker - Enable tinker qmmm code
 sci-chemistry/ghemical:openbabel - Use sci-chemistry/openbabel for file conversions
-sci-chemistry/ghemical:toolbar - Build the shortcuts toolbar
 sci-chemistry/gromacs:avx128fma - Enable 128bit avx with fma (e.g. AMD BullDozer)
 sci-chemistry/gromacs:avx256 - Enable 256bit avx (e.g. Intel Sandy Bridge)
 sci-chemistry/gromacs:avx2_256 - Enable 256bit avx2 (e.g. Intel Haswell)
@@ -6103,6 +6102,7 @@ sci-libs/gdal:geos - Add support for geometry engine (sci-libs/geos)
 sci-libs/gdal:gml - Enable support for dev-libs/xerces-c C++ API
 sci-libs/gdal:hdf5 - Add support for the Hierarchical Data Format v5 (sci-libs/hdf5)
 sci-libs/gdal:mdb - Enable support for Microsoft Access database
+sci-libs/gdal:ogdi - Enable support for the open geographic datastore interface (sci-libs/ogdi)
 sci-libs/gdal:opencl - Enable OpenCL support
 sci-libs/gdal:spatialite - Enable Spatial DBMS over sqlite dev-db/spatialite
 sci-libs/gdal:xls - Add the dev-libs/freexl library for xls import support
@@ -6474,6 +6474,8 @@ sys-auth/pambase:passwdqc - Enable pam_passwdqc module on system auth stack for 
 sys-auth/pambase:sha512 - Switch Linux-PAM's pam_unix module to use sha512 for passwords hashes rather than MD5. This option requires >=sys-libs/pam-1.0.1 built against >=sys-libs/glibc-2.7, if it's built against an earlier version, it will silently be ignored, and MD5 hashes will be used. All the passwords changed after this USE flag is enabled will be saved to the shadow file hashed using SHA512 function. The password previously saved will be left untouched. Please note that while SHA512-hashed passwords will still be recognised if the USE flag is removed, the shadow file will not be compatible with systems using an earlier glibc version.
 sys-auth/pambase:ssh - Enable pam_ssh module on system auth stack for authentication and session handling. This module will accept as password the passphrase of a private SSH key (one of ~/.ssh/id_rsa, ~/.ssh/id_dsa or ~/.ssh/identity), and will spawn an ssh-agent instance to cache the open key.
 sys-auth/polkit:systemd - Use sys-apps/systemd instead of sys-auth/consolekit for session tracking
+sys-auth/sssd:acl - Build and use the cifsidmap plugin
+sys-auth/sssd:augeas - Build internal configuration library
 sys-auth/sssd:autofs - Build helper to let net-fs/autofs use sssd provided information
 sys-auth/sssd:locator - Install sssd's Kerberos plugin
 sys-auth/sssd:manpages - Build man pages with dev-libs/libxslt

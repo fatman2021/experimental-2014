@@ -1,5 +1,5 @@
 ####################################################################
-# $Header: /var/cvsroot/gentoo-x86/profiles/package.mask,v 1.15867 2014/07/09 05:58:07 grozin Exp $
+# $Header: /var/cvsroot/gentoo-x86/profiles/package.mask,v 1.15893 2014/07/13 15:17:57 dilfridge Exp $
 #
 # When you add an entry to the top of this file, add your name, the date, and
 # an explanation of why something is getting masked. Please be extremely
@@ -29,6 +29,31 @@
 ## app-misc/some-package
 
 #--- END OF EXAMPLES ---
+
+# Ulrich Müller <ulm@gentoo.org> (13 Jul 2014)
+# Development of stand-alone package stopped in 2004.
+# sawfish.el is now provided by x11-wm/sawfish with USE=emacs.
+# Masked for removal in 30 days, bug #493114.
+app-emacs/sawfish
+
+# Markos Chandras <hwoarang@gentoo.org> (12 Jul 2014)
+# Masked for production testing
+=sys-auth/sssd-1.12.0
+
+# Sergei Trofimovich <slyfox@gentoo.org> (10 Jul 2014)
+# Masked as experimental major ghc release.
+=dev-lang/ghc-7.8.3*
+
+# Michael Weber <xmw@gentoo.org> (10 Jul 2014)
+# Masked for removal in 30 days.
+# Upstream released bugfixes against buffer overflows
+=dev-libs/libmodbus-3.0.3
+=dev-libs/libmodbus-3.1.0
+
+# Maxim Koltsov <maksbotan@gentoo.org> (9 Jul 2014)
+# Requires >=libav-10, which is masked, or >=ffmpeg-2.1.4
+# If you use ffmpeg instead of libav, sorry!
+=media-video/mpv-0.4.0
 
 # Andreas K. Huettel <dilfridge@gentoo.org> (7 Jul 2014)
 # Filter never was part of core Perl, no idea why we have a virtual.
@@ -225,6 +250,25 @@ dev-java/ibm-jdk-bin:1.5
 =virtual/perl-IO-1.310.0
 =virtual/perl-IPC-Cmd-0.920.0
 =virtual/perl-JSON-PP-2.272.30
+=virtual/perl-Math-BigInt-1.999.300
+=virtual/perl-Math-BigInt-FastCalc-0.310.0
+=virtual/perl-Math-BigRat-0.260.600
+=virtual/perl-Module-Build-0.420.500
+=virtual/perl-Module-CoreList-3.100.0
+=virtual/perl-Module-Load-0.320.0
+=virtual/perl-Module-Load-Conditional-0.620.0
+=virtual/perl-Module-Metadata-1.0.19
+=virtual/perl-Package-Constants-0.40.0
+=virtual/perl-Parse-CPAN-Meta-1.441.400
+=virtual/perl-Perl-OSType-1.7.0
+=virtual/perl-Pod-Escapes-1.60.0
+=virtual/perl-Safe-2.370.0
+=virtual/perl-Scalar-List-Utils-1.380.0
+=virtual/perl-Socket-2.13.0
+=virtual/perl-Storable-2.490.0
+=virtual/perl-Test-Harness-3.330.0
+=virtual/perl-Test-Simple-1.1.2
+=virtual/perl-bignum-0.370.0
 =perl-core/B-Debug-1.190.0
 
 # Pawel Hajdan jr <phajdan.jr@gentoo.org> (24 May 2014)
@@ -375,12 +419,6 @@ sys-fs/rdiff-backup-fs
 # Do NOT remove this mask or the affected packages without speaking to
 # bonsaikitten first! You have been warned!
 <net-fs/samba-3.6
-
-# Michał Górny <mgorny@gentoo.org> (12 Mar 2014)
-# Masked for testing and binary package built.
->=dev-python/pypy-2.3
->=dev-python/pypy-bin-2.3
->=virtual/pypy-2.3
 
 # Mike Gilbert <floppym@gentoo.org> (04 Mar 2014)
 # Dev channel releases are only for people who are developers or want more
