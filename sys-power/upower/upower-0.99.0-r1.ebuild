@@ -1,6 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-power/upower/upower-0.99.0-r1.ebuild,v 1.4 2014/06/19 18:55:15 ssuominen Exp $
 
 EAPI=5
 inherit eutils systemd
@@ -11,8 +9,8 @@ SRC_URI="http://${PN}.freedesktop.org/releases/${P}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0/2" # based on SONAME of libupower-glib.so
-KEYWORDS="~alpha amd64 arm ~ia64 ~mips ppc ppc64 ~sparc x86 ~x86-fbsd"
-IUSE="+introspection ios kernel_FreeBSD kernel_linux"
+KEYWORDS="~*"
+IUSE="+deprecated +introspection ios kernel_FreeBSD kernel_linux"
 
 RDEPEND=">=dev-libs/dbus-glib-0.100
 	>=dev-libs/glib-2.30
@@ -27,19 +25,36 @@ RDEPEND=">=dev-libs/dbus-glib-0.100
 			>=app-pda/libimobiledevice-1:=
 			>=app-pda/libplist-1:=
 			)
-		)"
+		)
+	deprecated? ( >=sys-power/pm-utils-1.4.1-r2 )"
 DEPEND="${RDEPEND}
 	dev-libs/libxslt
 	app-text/docbook-xsl-stylesheets
 	dev-util/intltool
 	virtual/pkgconfig"
+PDEPEND="deprecated? (
+	gnome-base/gnome-control-center[deprecated]
+	gnome-base/gnome-session[deprecated]
+	gnome-base/gnome-settings-daemon[deprecated]
+	gnome-base/gnome-shell[deprecated]
+	sys-power/acpid[gnome]
+)"
 
 QA_MULTILIB_PATHS="usr/lib/${PN}/.*"
 
 DOCS="AUTHORS HACKING NEWS README"
 
 src_prepare() {
-	sed -i -e '/DISABLE_DEPRECATED/d' configure || die
+	if use deprecated; then
+		# From Funtoo:
+		# 	https://bugs.funtoo.org/browse/FL-1329
+		epatch "${FILESDIR}"/${P}-restore-deprecated-code.patch
+
+		# From Debian:
+		#	https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=718458
+		#	https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=718491
+		epatch "${FILESDIR}"/${P}-always-use-pm-utils-backend.patch
+	fi
 
 	epatch \
 		"${FILESDIR}"/${P}-create-dir-runtime.patch \
@@ -50,6 +65,10 @@ src_prepare() {
 
 src_configure() {
 	local backend myconf
+
+	if use deprecated; then
+		myconf="--enable-deprecated"
+	fi
 
 	if use kernel_linux; then
 		backend=linux
