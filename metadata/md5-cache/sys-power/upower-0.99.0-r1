@@ -11,4 +11,4 @@ RDEPEND=>=dev-libs/dbus-glib-0.100 >=dev-libs/glib-2.30 sys-apps/dbus:= >=sys-au
 SLOT=0/2
 SRC_URI=http://upower.freedesktop.org/releases/upower-0.99.0.tar.xz
 _eclasses_=eutils	06133990e861be0fe60c2b428fd025d9	multilib	3bf24e6abb9b76d9f6c20600f0b716bf	systemd	b0daeef4b75b0130d34c62aa1930d21e	toolchain-funcs	0f1760274637a138b99bb649202ea402
-_md5_=d75b6b3422a62ba5d7dd06f482fd99fb
+_md5_=e87a8aade0329e0bec31fca76331b710
