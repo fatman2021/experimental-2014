@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/x11-misc/colord/colord-1.0.3.ebuild,v 1.8 2014/03/29 22:04:07 tetromino Exp $
+# $Header: /var/cvsroot/gentoo-x86/x11-misc/colord/colord-1.0.3.ebuild,v 1.10 2014/07/30 19:22:57 ssuominen Exp $
 
 EAPI="5"
 VALA_MIN_API_VERSION="0.18"
@@ -30,7 +30,11 @@ COMMON_DEPEND="
 	introspection? ( >=dev-libs/gobject-introspection-0.9.8 )
 	scanner? ( media-gfx/sane-backends )
 	systemd? ( >=sys-apps/systemd-44:0= )
-	udev? ( virtual/udev:=[gudev] )"
+	udev? (
+		virtual/libudev:=
+		virtual/libgudev:=
+		virtual/udev
+		)"
 RDEPEND="${COMMON_DEPEND}
 	!media-gfx/shared-color-profiles"
 DEPEND="${COMMON_DEPEND}
@@ -83,7 +87,7 @@ src_configure() {
 		$(use_enable scanner sane) \
 		$(use_enable systemd systemd-login) \
 		$(use_enable udev gudev) \
-		--with-udevrulesdir="$(udev_get_udevdir)"/rules.d \
+		--with-udevrulesdir="$(get_udevdir)"/rules.d \
 		$(use_enable vala) \
 		"$(systemd_with_unitdir)"
 }

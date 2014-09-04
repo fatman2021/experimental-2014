@@ -1,13 +1,13 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-cluster/cinder/cinder-2014.1.9999.ebuild,v 1.2 2014/07/06 12:56:38 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-cluster/cinder/cinder-2014.1.9999.ebuild,v 1.4 2014/08/10 20:20:15 slyfox Exp $
 
 EAPI=5
 PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1 eutils git-2 user
 
-DESCRIPTION="Cinder is the OpenStack Block storage service, a spin out of nova-volumes."
+DESCRIPTION="Cinder is the OpenStack Block storage service, a spin out of nova-volumes"
 HOMEPAGE="https://launchpad.net/cinder"
 EGIT_REPO_URI="https://github.com/openstack/cinder.git"
 EGIT_BRANCH="stable/icehouse"
@@ -65,12 +65,23 @@ RDEPEND="=dev-python/amqplib-0.6.1-r1[${PYTHON_USEDEP}]
 		<dev-python/taskflow-0.2[${PYTHON_USEDEP}]
 		>=dev-python/rtslib-fb-2.1.39[${PYTHON_USEDEP}]
 		>=dev-python/six-1.5.2[${PYTHON_USEDEP}]
-		sqlite? ( >=dev-python/sqlalchemy-0.7.8[sqlite,${PYTHON_USEDEP}]
-			<dev-python/sqlalchemy-0.9.99[sqlite,${PYTHON_USEDEP}] )
-		mysql? ( >=dev-python/sqlalchemy-0.7.8[mysql,${PYTHON_USEDEP}]
-			<dev-python/sqlalchemy-0.9.99[mysql,${PYTHON_USEDEP}] )
-		postgres? ( >=dev-python/sqlalchemy-0.7.8[postgres,${PYTHON_USEDEP}]
-			<dev-python/sqlalchemy-0.9.99[postgres,${PYTHON_USEDEP}] )
+		sqlite? (
+			>=dev-python/sqlalchemy-0.8.0[sqlite,${PYTHON_USEDEP}]
+			!~dev-python/sqlalchemy-0.9.5[sqlite,${PYTHON_USEDEP}]
+			<=dev-python/sqlalchemy-0.9.99[sqlite,${PYTHON_USEDEP}]
+		)
+		mysql? (
+			dev-python/mysql-python
+			>=dev-python/sqlalchemy-0.8.0[${PYTHON_USEDEP}]
+			!~dev-python/sqlalchemy-0.9.5[${PYTHON_USEDEP}]
+			<=dev-python/sqlalchemy-0.9.99[${PYTHON_USEDEP}]
+		)
+		postgres? (
+			dev-python/psycopg:2
+			>=dev-python/sqlalchemy-0.8.0[${PYTHON_USEDEP}]
+			!~dev-python/sqlalchemy-0.9.5[${PYTHON_USEDEP}]
+			<=dev-python/sqlalchemy-0.9.99[${PYTHON_USEDEP}]
+		)
 		>=dev-python/sqlalchemy-migrate-0.9[${PYTHON_USEDEP}]
 		>=dev-python/stevedore-0.14[${PYTHON_USEDEP}]
 		>=dev-python/suds-0.4[${PYTHON_USEDEP}]

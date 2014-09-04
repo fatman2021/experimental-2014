@@ -11,17 +11,17 @@ EGIT_BOOTSTRAP="autogen.sh"
 KEYWORDS=""
 
 DESCRIPTION="foobar2k-like music player"
-HOMEPAGE="http://deadbeef.sourceforge.net/"
+HOMEPAGE="http://deadbeef.sourceforge.net"
 
 LICENSE="BSD
 	UNICODE
 	ZLIB
 	aac? ( GPL GPL-2 )
 	adplug? ( LGPL-2.1 ZLIB )
-	alsa? ( GPL-2 )
 	alac? ( MIT GPL-2 )
-	cover? ( ZLIB )
+	alsa? ( GPL-2 )
 	cdda? ( GPL-2 LGPL-2 GPL-3 )
+	cover? ( ZLIB )
 	converter? ( GPL-2 )
 	curl? ( curl ZLIB )
 	dts? ( GPL-2 )
@@ -61,9 +61,13 @@ LICENSE="BSD
 
 SLOT="0"
 
-IUSE="aac adplug alac alsa psf cdda converter cover cover-imlib2 cover-network curl dts dumb equalizer ffmpeg flac gme gtk2
-	gtk3 hotkeys lastfm mac m3u midi mms mono2stereo mp3 musepack nls lastfm libnotify libsamplerate nullout
-	oss psf pulseaudio pltbrowser shellexec shellexecui shn sid sndfile tta unity vorbis vtx wavpack wma zip"
+IUSE_DEADBEEF_PLUGINS="archive bookmark-manager bs2b filebrowser gnome-mmkeys infobar jack musical-spectrum replaygain-control spectrogram stereo-widener vk waveform-seekbar"
+
+IUSE="+alsa +flac +gtk2 +hotkeys +m3u +mp3 +sndfile +vorbis
+	aac adplug alac cdda converter cover cover-imlib2 cover-network curl dts dumb equalizer
+	ffmpeg gme gtk3 lastfm libnotify libsamplerate mac midi mms mono2stereo musepack nls nullout
+	oss psf pulseaudio pltbrowser shellexec shellexecui shn sid tta unity vtx wavpack wma zip
+	${IUSE_DEADBEEF_PLUGINS}"
 
 REQUIRED_USE="cover-imlib2? ( cover )
 	cover-network? ( cover curl )
@@ -81,6 +85,20 @@ for lang in ${LANGS} ; do
 	IUSE+=" linguas_${lang}"
 done
 
+PDEPEND="archive? ( media-plugins/deadbeef-archive-reader )
+	bookmark-manager? ( media-plugins/deadbeef-bookmark-manager )
+	bs2b? ( media-plugins/deadbeef-bs2b )
+	filebrowser? ( media-plugins/deadbeef-fb )
+	gnome-mmkeys? ( media-plugins/deadbeef-gnome-mmkeys )
+	infobar? ( media-plugins/deadbeef-infobar )
+	jack? ( media-plugins/deadbeef-jack )
+	musical-spectrum? ( media-plugins/deadbeef-musical-spectrum )
+	replaygain-control? ( media-plugins/deadbeef-replaygain-control )
+	spectrogram? ( media-plugins/deadbeef-spectrogram )
+	stereo-widener? ( media-plugins/deadbeef-stereo-widener )
+	vk? ( media-plugins/deadbeef-vk )
+	waveform-seekbar? ( media-plugins/deadbeef-waveform-seekbar )"
+
 RDEPEND="aac? ( media-libs/faad2 )
 	adplug? ( media-libs/adplug )
 	alsa? ( media-libs/alsa-lib )
@@ -88,7 +106,8 @@ RDEPEND="aac? ( media-libs/faad2 )
 	cdda? ( dev-libs/libcdio media-libs/libcddb )
 	cover? ( cover-imlib2? ( media-libs/imlib2 )
 		media-libs/libpng
-		virtual/jpeg )
+		virtual/jpeg
+		x11-libs/gdk-pixbuf[jpeg] )
 	curl? ( net-misc/curl )
 	ffmpeg? ( virtual/ffmpeg )
 	flac? ( media-libs/flac )
@@ -118,18 +137,17 @@ src_prepare() {
 	if use midi ; then
 		# set default gentoo path
 		sed -e 's;/etc/timidity++/timidity-freepats.cfg;/usr/share/timidity/freepats/timidity.cfg;g' \
-		-i "${S}/plugins/wildmidi/wildmidiplug.c" || die
+			-i "${S}/plugins/wildmidi/wildmidiplug.c" || die
 	fi
 
 	if ! use unity ; then
 		# remove unity trash
-		epatch "${FILESDIR}/remove-unity-trash.patch"
+		epatch "${FILESDIR}/${PN}-0.6.2-or-higher-remove-unity-trash.patch"
 	fi
 }
 
 src_configure() {
 	econf --disable-coreaudio \
-		--disable-dependency-tracking \
 		--disable-portable \
 		--disable-static \
 		--docdir=/usr/share/${PN} \
@@ -182,24 +200,26 @@ src_configure() {
 }
 
 pkg_preinst() {
-	gnome2_icon_savelist
-	gnome2_schemas_savelist
+	if use gtk2 || use gtk3 ; then
+		gnome2_icon_savelist
+		gnome2_schemas_savelist
+	fi
 }
 
 pkg_postinst() {
-	if use midi ; then
-		einfo "enable manually freepats support for timidity via"
-		einfo "eselect timidity set --global freepats"
+	if use gtk2 || use gtk3 ; then
+		fdo-mime_desktop_database_update
+		fdo-mime_mime_database_update
+		gnome2_icon_cache_update
+		gnome2_schemas_update
 	fi
-	fdo-mime_desktop_database_update
-	fdo-mime_mime_database_update
-	gnome2_icon_cache_update
-	gnome2_schemas_update
 }
 
 pkg_postrm() {
-	fdo-mime_desktop_database_update
-	fdo-mime_mime_database_update
-	gnome2_icon_cache_update
-	gnome2_schemas_update
+	if use gtk2 || use gtk3 ; then
+		fdo-mime_desktop_database_update
+		fdo-mime_mime_database_update
+		gnome2_icon_cache_update
+		gnome2_schemas_update
+	fi
 }

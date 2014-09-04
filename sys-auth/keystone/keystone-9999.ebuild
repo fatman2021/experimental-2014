@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-auth/keystone/keystone-9999.ebuild,v 1.17 2014/07/06 12:56:23 mgorny Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-auth/keystone/keystone-9999.ebuild,v 1.19 2014/08/10 20:21:57 slyfox Exp $
 
 EAPI=5
 
@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python2_7 )
 
 inherit git-2 distutils-r1 user
 
-DESCRIPTION="The Openstack authentication, authorization, and service catalog written in Python."
+DESCRIPTION="The Openstack authentication, authorization, and service catalog written in Python"
 HOMEPAGE="https://launchpad.net/keystone"
 EGIT_REPO_URI="https://github.com/openstack/keystone.git"
 EGIT_BRANCH="master"
@@ -54,12 +54,23 @@ RDEPEND=">=dev-python/python-pam-0.1.4[${PYTHON_USEDEP}]
 	>=dev-python/pastedeploy-1.5.0[${PYTHON_USEDEP}]
 	dev-python/paste[${PYTHON_USEDEP}]
 	>=dev-python/routes-1.12.3[${PYTHON_USEDEP}]
-	sqlite? ( >=dev-python/sqlalchemy-0.7.8[sqlite,${PYTHON_USEDEP}]
-	          <dev-python/sqlalchemy-0.7.99[sqlite,${PYTHON_USEDEP}] )
-	mysql? ( >=dev-python/sqlalchemy-0.7.8[mysql,${PYTHON_USEDEP}]
-	         <dev-python/sqlalchemy-0.7.99[mysql,${PYTHON_USEDEP}] )
-	postgres? ( >=dev-python/sqlalchemy-0.7.8[postgres,${PYTHON_USEDEP}]
-	            <dev-python/sqlalchemy-0.7.99[postgres,${PYTHON_USEDEP}] )
+	sqlite? (
+		>=dev-python/sqlalchemy-0.8.0[sqlite,${PYTHON_USEDEP}]
+		!~dev-python/sqlalchemy-0.9.5[sqlite,${PYTHON_USEDEP}]
+		<=dev-python/sqlalchemy-0.9.99[sqlite,${PYTHON_USEDEP}]
+	)
+	mysql? (
+		dev-python/mysql-python
+		>=dev-python/sqlalchemy-0.8.0[${PYTHON_USEDEP}]
+		!~dev-python/sqlalchemy-0.9.5[${PYTHON_USEDEP}]
+		<=dev-python/sqlalchemy-0.9.99[${PYTHON_USEDEP}]
+	)
+	postgres? (
+		dev-python/psycopg:2
+		>=dev-python/sqlalchemy-0.8.0[${PYTHON_USEDEP}]
+		!~dev-python/sqlalchemy-0.9.5[${PYTHON_USEDEP}]
+		<=dev-python/sqlalchemy-0.9.99[${PYTHON_USEDEP}]
+	)
 	>=dev-python/sqlalchemy-migrate-0.7.2[${PYTHON_USEDEP}]
 	dev-python/passlib[${PYTHON_USEDEP}]
 	>=dev-python/lxml-2.3[${PYTHON_USEDEP}]

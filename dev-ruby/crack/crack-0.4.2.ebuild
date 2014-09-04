@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/dev-ruby/crack/crack-0.4.2.ebuild,v 1.3 2014/07/02 08:44:41 graaff Exp $
+# $Header: /var/cvsroot/gentoo-x86/dev-ruby/crack/crack-0.4.2.ebuild,v 1.5 2014/08/15 14:27:36 blueness Exp $
 
 EAPI=5
 
@@ -11,12 +11,12 @@ RUBY_FAKEGEM_EXTRADOC="README.md History"
 
 inherit ruby-fakegem
 
-DESCRIPTION="Really simple JSON and XML parsing, ripped from Merb and Rails."
+DESCRIPTION="Really simple JSON and XML parsing, ripped from Merb and Rails"
 HOMEPAGE="https://github.com/jnunemaker/crack"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~amd64-linux ~x64-macos ~x64-solaris"
+KEYWORDS="~amd64 ~ppc ~ppc64 ~amd64-linux ~x64-macos ~x64-solaris"
 IUSE=""
 
 ruby_add_bdepend "test? ( dev-ruby/minitest )"

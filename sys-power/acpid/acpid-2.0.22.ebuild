@@ -1,7 +1,9 @@
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: /var/cvsroot/gentoo-x86/sys-power/acpid/acpid-2.0.22.ebuild,v 1.2 2014/07/21 19:38:08 ssuominen Exp $
 
 EAPI=5
-inherit systemd
+inherit linux-info systemd
 
 DESCRIPTION="Daemon for Advanced Configuration and Power Interface"
 HOMEPAGE="http://sourceforge.net/projects/acpid2"
@@ -9,18 +11,20 @@ SRC_URI="mirror://sourceforge/${PN}2/${P}.tar.xz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~*"
+KEYWORDS="~amd64 ~ia64 -ppc ~x86"
 IUSE="selinux"
 
 RDEPEND="selinux? ( sec-policy/selinux-apm )"
 DEPEND="${RDEPEND}
 	    >=sys-kernel/linux-headers-3"
 
-src_prepare() {
-	# From Funtoo:
-	# 	https://bugs.funtoo.org/browse/FL-1329
-	epatch "${FILESDIR}"/${P}-rename-gnome-power-management-system-process.patch
+pkg_pretend() {
+	local CONFIG_CHECK="~INPUT_EVDEV"
+	local WARNING_INPUT_EVDEV="CONFIG_INPUT_EVDEV is required for ACPI button event support."
+	[[ ${MERGE_TYPE} != buildonly ]] && check_extra_config
 }
+
+pkg_setup() { :; }
 
 src_configure() {
 	econf --docdir=/usr/share/doc/${PF}

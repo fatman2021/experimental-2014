@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice/libreoffice-4.2.9999.ebuild,v 1.11 2014/05/18 09:04:49 scarabeus Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice/libreoffice-4.2.9999.ebuild,v 1.14 2014/08/15 09:10:14 scarabeus Exp $
 
 EAPI=5
 
@@ -30,7 +30,7 @@ BRANDING="${PN}-branding-gentoo-0.8.tar.xz"
 inherit base autotools bash-completion-r1 check-reqs eutils java-pkg-opt-2 kde4-base pax-utils python-single-r1 multilib toolchain-funcs flag-o-matic nsplugins ${SCM_ECLASS}
 unset SCM_ECLASS
 
-DESCRIPTION="LibreOffice, a full office productivity suite."
+DESCRIPTION="LibreOffice, a full office productivity suite"
 HOMEPAGE="http://www.libreoffice.org"
 SRC_URI="branding? ( http://dev.gentoo.org/~dilfridge/distfiles/${BRANDING} )"
 [[ -n ${PATCHSET} ]] && SRC_URI+=" http://dev.gentooexperimental.org/~scarabeus/${PATCHSET}"
@@ -121,8 +121,8 @@ COMMON_DEPEND="
 	>=dev-libs/nspr-4.8.8
 	>=dev-libs/nss-3.12.9
 	>=dev-lang/perl-5.0
-	>=dev-libs/openssl-1.0.0d
-	>=dev-libs/redland-1.0.16[ssl]
+	>=dev-libs/openssl-1.0.0d:0
+	>=dev-libs/redland-1.0.16
 	media-gfx/graphite2
 	>=media-libs/fontconfig-2.8.0
 	media-libs/freetype:2
@@ -209,7 +209,7 @@ DEPEND="${COMMON_DEPEND}
 	dev-util/cppunit
 	>=dev-util/gperf-3
 	dev-util/intltool
-	>=dev-util/mdds-0.10.2:=
+	>=dev-util/mdds-0.10.3:=
 	virtual/pkgconfig
 	net-misc/npapi-sdk
 	>=sys-apps/findutils-4.4.2

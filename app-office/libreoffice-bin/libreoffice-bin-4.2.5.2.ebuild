@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice-bin/libreoffice-bin-4.2.5.2.ebuild,v 1.4 2014/06/29 16:43:12 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-office/libreoffice-bin/libreoffice-bin-4.2.5.2.ebuild,v 1.6 2014/08/10 18:15:12 slyfox Exp $
 
 EAPI=5
 
@@ -16,7 +16,7 @@ PYTHON_REQ_USE="threads,xml"
 
 inherit kde4-base java-pkg-opt-2 python-single-r1 pax-utils prefix versionator
 
-DESCRIPTION="LibreOffice, a full office productivity suite. Binary package."
+DESCRIPTION="LibreOffice, a full office productivity suite. Binary package"
 HOMEPAGE="http://www.libreoffice.org"
 SRC_URI_AMD64="
 	${BASE_AMD64_URI}libreoffice-${PVR}.tar.xz
@@ -108,7 +108,7 @@ COMMON_DEPEND="
 	>=dev-libs/nss-3.12.9
 	>=dev-lang/perl-5.0
 	>=dev-libs/openssl-1.0.0d
-	>=dev-libs/redland-1.0.16[ssl]
+	>=dev-libs/redland-1.0.16
 	media-gfx/graphite2
 	>=media-libs/fontconfig-2.8.0
 	media-libs/freetype:2

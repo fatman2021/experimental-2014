@@ -1,9 +1,9 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/libcaca/libcaca-0.99_beta18-r2.ebuild,v 1.7 2014/07/18 11:10:13 pacho Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/libcaca/libcaca-0.99_beta18-r2.ebuild,v 1.13 2014/08/25 10:59:47 ago Exp $
 
 EAPI=5
-PYTHON_COMPAT=( python{2_6,2_7} )
+PYTHON_COMPAT=( python2_7 )
 inherit autotools eutils flag-o-matic mono multilib java-pkg-opt-2 python-single-r1 multilib-minimal
 
 MY_P=${P/_/.}
@@ -13,7 +13,7 @@ SRC_URI="http://libcaca.zoy.org/files/${PN}/${MY_P}.tar.gz"
 
 LICENSE="GPL-2 ISC LGPL-2.1 WTFPL-2"
 SLOT="0"
-KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc x86 ~amd64-fbsd ~x86-fbsd"
+KEYWORDS="alpha amd64 ~arm hppa ia64 ~mips ppc ppc64 ~sh ~sparc x86 ~amd64-fbsd ~x86-fbsd"
 IUSE="cxx doc imlib java mono ncurses opengl python ruby slang static-libs test truetype X"
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
@@ -73,10 +73,12 @@ src_prepare() {
 		append-cflags -DX_DISPLAY_MISSING
 	fi
 
-	has_version '>=dev-texlive/texlive-latex-2013' && epatch "${FILESDIR}/${P}-latex_hacks.patch"
+	# Removed 'has_version '>=dev-texlive/texlive-latex-2013' &&' that prefixed this
+	# patch before wrt #517474
+	epatch "${FILESDIR}"/${P}-latex_hacks.patch
 
 	# fix out of source tests
-	epatch "${FILESDIR}/${P}-fix-tests.patch"
+	epatch "${FILESDIR}"/${P}-fix-tests.patch
 
 	eautoreconf
 

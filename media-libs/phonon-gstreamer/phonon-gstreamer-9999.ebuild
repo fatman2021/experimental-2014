@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/phonon-gstreamer/phonon-gstreamer-9999.ebuild,v 1.17 2014/06/21 16:20:46 kensington Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/phonon-gstreamer/phonon-gstreamer-9999.ebuild,v 1.20 2014/08/14 15:05:22 johu Exp $
 
 EAPI=5
 
@@ -28,23 +28,24 @@ REQUIRED_USE="|| ( qt4 qt5 )"
 
 RDEPEND="
 	dev-libs/glib:2
-	media-libs/gstreamer:0.10
-	media-libs/gst-plugins-base:0.10
-	media-plugins/gst-plugins-meta:0.10[alsa?,ogg,vorbis]
-	>=media-libs/phonon-4.7.0[qt4?,qt5?]
+	dev-libs/libxml2:2
+	media-libs/gstreamer:1.0
+	media-libs/gst-plugins-base:1.0
+	media-plugins/gst-plugins-meta:1.0[alsa?,ogg,vorbis]
+	>=media-libs/phonon-4.7.80[qt4?,qt5?]
 	qt4? (
 		dev-qt/qtcore:4[glib]
 		dev-qt/qtgui:4[glib]
 		dev-qt/qtopengl:4
 	)
 	qt5? (
-		dev-qt/qtcore:5[glib]
-		dev-qt/qtgui:5[glib]
+		dev-qt/qtcore:5
+		dev-qt/qtgui:5
 		dev-qt/qtopengl:5
 		dev-qt/qtwidgets:5
 	)
 	virtual/opengl
-	network? ( media-plugins/gst-plugins-soup:0.10 )
+	network? ( media-plugins/gst-plugins-soup:1.0 )
 "
 DEPEND="${RDEPEND}
 	qt4? ( >=dev-util/automoc-0.9.87 )

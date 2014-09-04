@@ -1,6 +1,6 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/app-backup/backuppc/backuppc-3.2.1-r2.ebuild,v 1.4 2012/05/24 04:37:05 vapier Exp $
+# $Header: /var/cvsroot/gentoo-x86/app-backup/backuppc/backuppc-3.2.1-r2.ebuild,v 1.6 2014/08/10 01:54:00 patrick Exp $
 
 EAPI="2"
 
@@ -8,7 +8,7 @@ inherit eutils webapp user
 
 MY_P="BackupPC-${PV}"
 
-DESCRIPTION="A high-performance system for backing up computers to a server's disk."
+DESCRIPTION="A high-performance system for backing up computers to a server's disk"
 HOMEPAGE="http://backuppc.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${MY_P}.tar.gz
 	http://dev.gentooexperimental.org/~dreeevil/02-fix-config.pl-formatting.patch"
@@ -22,7 +22,7 @@ DEPEND="dev-lang/perl
 	app-admin/apache-tools
 	app-admin/makepasswd"
 RDEPEND="${DEPEND}
-	perl-core/IO-Compress
+	virtual/perl-IO-Compress
 	dev-perl/Archive-Zip
 	dev-perl/libwww-perl
 	>=app-arch/tar-1.13.20
