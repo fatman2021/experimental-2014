@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.7.5.ebuild,v 1.10 2014/09/14 07:51:12 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-print/cups/cups-1.7.5.ebuild,v 1.13 2014/11/02 12:42:26 swift Exp $
 
 EAPI=5
 
@@ -21,10 +21,10 @@ if [[ ${PV} == *9999 ]]; then
 	if [[ ${PV} != 9999 ]]; then
 		EGIT_BRANCH=branch-${PV/.9999}
 	fi
-	KEYWORDS="alpha amd64 hppa ia64 ppc ppc64 x86"
+	KEYWORDS="alpha amd64 arm hppa ia64 ppc ppc64 sparc x86"
 else
 	SRC_URI="http://www.cups.org/software/${MY_PV}/${MY_P}-source.tar.bz2"
-	KEYWORDS="alpha amd64 ~arm hppa ia64 ~mips ppc ppc64 ~s390 ~sh ~sparc x86 ~amd64-fbsd ~x86-fbsd ~m68k-mint"
+	KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 ~s390 ~sh sparc x86 ~amd64-fbsd ~x86-fbsd ~m68k-mint"
 fi
 
 DESCRIPTION="The Common Unix Printing System"
@@ -40,7 +40,7 @@ for X in ${LANGS} ; do
 	IUSE="${IUSE} +linguas_${X}"
 done
 
-RDEPEND="
+CDEPEND="
 	app-text/libpaper
 	acl? (
 		kernel_linux? (
@@ -54,7 +54,6 @@ RDEPEND="
 	!lprng-compat? ( !net-print/lprng )
 	pam? ( virtual/pam )
 	python? ( ${PYTHON_DEPS} )
-	selinux? ( sec-policy/selinux-cups )
 	ssl? (
 		gnutls? (
 			>=dev-libs/libgcrypt-1.5.3:0[${MULTILIB_USEDEP}]
@@ -72,8 +71,11 @@ RDEPEND="
 	)
 "
 
-DEPEND="${RDEPEND}
+DEPEND="${CDEPEND}
 	>=virtual/pkgconfig-0-r1[${MULTILIB_USEDEP}]
+"
+RDEPEND="${CDEPEND}
+	selinux? ( sec-policy/selinux-cups )
 "
 
 PDEPEND="

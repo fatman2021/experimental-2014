@@ -53,7 +53,7 @@ LICENSE="BSD
 	playlist-browser? ( ZLIB )
 	psf? ( BSD GPL MAME ZLIB )
 	pulseaudio? ( GPL-2 )
-	shellexec? ( GPL-2 )
+	shell-exec? ( GPL-2 )
 	shn? ( shorten ZLIB )
 	sid? ( GPL-2 )
 	sndfile? ( GPL-2 LGPL-2 )
@@ -69,11 +69,7 @@ SLOT="0"
 IUSE="+alsa +flac +gtk2 +hotkeys +m3u +mp3 +sndfile +vorbis
 	aac adplug alac cdda converter cover cover-imlib2 cover-network curl dts dumb equalizer
 	ffmpeg gme gtk3 lastfm libnotify libsamplerate mac midi mms mono2stereo musepack nls nullout
-	oss playlist-browser psf pulseaudio shellexec shellexecui shn sid tta unity vtx wavpack wma zip"
-
-# deadbeef third party plugins
-IUSE+=" archive bookmark-manager bs2b filebrowser gnome-mmkeys infobar jack mpris musical-spectrum
-	opus replaygain-control spectrogram stereo-widener vk vu-meter waveform-seekbar"
+	oss playlist-browser psf pulseaudio shell-exec shn sid tta unity vtx wavpack wma zip"
 
 REQUIRED_USE="converter? ( || ( gtk2 gtk3 ) )
 	cover-imlib2? ( cover )
@@ -81,27 +77,12 @@ REQUIRED_USE="converter? ( || ( gtk2 gtk3 ) )
 	cover? ( || ( gtk2 gtk3 ) )
 	lastfm? ( curl )
 	playlist-browser? ( || ( gtk2 gtk3 ) )
-	shellexecui? ( || ( gtk2 gtk3 ) shellexec )
 	|| ( alsa oss pulseaudio nullout )"
 
-PDEPEND="archive? ( media-plugins/deadbeef-archive-reader )
-	bookmark-manager? ( media-plugins/deadbeef-bookmark-manager )
-	bs2b? ( media-plugins/deadbeef-bs2b )
-	filebrowser? ( media-plugins/deadbeef-fb )
-	gnome-mmkeys? ( media-plugins/deadbeef-gnome-mmkeys )
-	infobar? ( media-plugins/deadbeef-infobar )
-	jack? ( media-plugins/deadbeef-jack )
-	mpris? ( media-plugins/deadbeef-mpris )
-	musical-spectrum? ( media-plugins/deadbeef-musical-spectrum )
-	opus? ( media-plugins/deadbeef-opus )
-	replaygain-control? ( media-plugins/deadbeef-replaygain-control )
-	spectrogram? ( media-plugins/deadbeef-spectrogram )
-	stereo-widener? ( media-plugins/deadbeef-stereo-widener )
-	vk? ( media-plugins/deadbeef-vk )
-	vu-meter? ( media-plugins/deadbeef-vu-meter )
-	waveform-seekbar? ( media-plugins/deadbeef-waveform-seekbar )"
+PDEPEND="media-plugins/deadbeef-plugins-meta"
 
-RDEPEND="aac? ( media-libs/faad2 )
+RDEPEND="dev-libs/glib
+	aac? ( media-libs/faad2 )
 	adplug? ( media-libs/adplug )
 	alsa? ( media-libs/alsa-lib )
 	alac? ( media-libs/faad2 )
@@ -112,9 +93,13 @@ RDEPEND="aac? ( media-libs/faad2 )
 		x11-libs/gdk-pixbuf[jpeg] )
 	curl? ( net-misc/curl )
 	ffmpeg? ( virtual/ffmpeg )
-	flac? ( media-libs/flac )
+	flac? ( media-libs/libogg
+		media-libs/flac )
 	gme? ( sys-libs/zlib )
-	gtk2? ( x11-libs/gtk+:2 )
+	gtk2? ( dev-libs/atk
+		x11-libs/cairo
+		x11-libs/gtk+:2
+		x11-libs/pango )
 	gtk3? ( x11-libs/gtk+:3 )
 	hotkeys? ( x11-libs/libX11 )
 	libnotify? ( sys-apps/dbus )
@@ -162,14 +147,24 @@ src_prepare() {
 		epatch "${FILESDIR}/${PN}-0.6.2-or-higher-remove-unity-trash.patch"
 	fi
 
+	config_rpath_update "${S}/config.rpath" || die
 	eautoreconf
 }
 
 src_configure() {
+	if use shell-exec ; then
+		if use gtk2 || use gtk3 ; then
+			shell-exec-ui="--enable-shellexec-ui"
+		else
+			shell-exec-ui="--disable-shellexec-ui"
+		fi
+	fi
+
 	econf --disable-coreaudio \
 		--disable-portable \
 		--disable-static \
 		--docdir=/usr/share/${PN} \
+		${shell-exec-ui} \
 		$(use_enable aac) \
 		$(use_enable adplug) \
 		$(use_enable alac) \
@@ -205,8 +200,7 @@ src_configure() {
 		$(use_enable playlist-browser pltbrowser) \
 		$(use_enable psf) \
 		$(use_enable pulseaudio pulse) \
-		$(use_enable shellexec shellexec) \
-		$(use_enable shellexecui shellexecui) \
+		$(use_enable shell-exec shellexec) \
 		$(use_enable shn) \
 		$(use_enable sid) \
 		$(use_enable sndfile) \

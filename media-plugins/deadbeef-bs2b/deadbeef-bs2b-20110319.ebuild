@@ -2,7 +2,7 @@
 
 EAPI="5"
 
-inherit deadbeef-plugins git-2
+inherit deadbeef-plugins git-r3
 
 GITORIOUS_PROJECT="deadbeef-sm-plugins"
 GITORIOUS_REPOSITORY="bs2b"
@@ -15,7 +15,7 @@ EGIT_COMMIT="a1961cd2f0686a7bdf0915f1fc7d62b5aba369bd"
 LICENSE="MIT"
 KEYWORDS="~*"
 
-RDEPEND="media-libs/libbs2b"
+RDEPEND+=" media-libs/libbs2b"
 
 DEPEND="${RDEPEND}"
 

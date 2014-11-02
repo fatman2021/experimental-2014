@@ -1,24 +1,40 @@
 # Distributed under the terms of the GNU General Public License v2
 
+# @ECLASS: deadbeef-plugins.eclass
+# @MAINTAINER:
+# Roman Kuzmitsky <damex.pp@gmail.com>
+# @BLURB: Eclass for automating deadbeef player plugins installation.
+# @DESCRIPTION:
+# This eclass makes trivial deadbeef plugin ebuilds possible.
+# Many things that would normally be done manually is automated.
+
+if [[ "${EAPI}" -lt 5 ]] ; then
+	die "EAPI="${EAPI}" is not supported"
+fi
+
 inherit eutils
 
 : ${SLOT:=0}
 
-RDEPEND="${RDEPEND} media-sound/deadbeef"
-DEPEND="${DEPEND} media-sound/deadbeef"
+RDEPEND+=" media-sound/deadbeef"
+DEPEND+=" media-sound/deadbeef"
 
 RESTRICT="mirror"
 
 if [[ "${DEADBEEF_GUI}" == "yes" ]] ; then
 	IUSE+=" +gtk2 gtk3"
 	REQUIRED_USE="|| ( gtk2 gtk3 )"
-	RDEPEND="${RDEPEND}
-		gtk2? ( media-sound/deadbeef[gtk2] )
+	GUI_DEPEND="gtk2? ( media-sound/deadbeef[gtk2] )
 		gtk3? ( media-sound/deadbeef[gtk3] )"
+	RDEPEND+=" ${GUI_DEPEND}"
+	DEPEND+=" ${GUI_DEPEND}"
 fi
 
 EXPORT_FUNCTIONS "src_configure src_compile src_install"
 
+# @FUNCTION: deadbeef-plugins_src_compile
+# @DESCRIPTION:
+# Doing checks for right configure options and configuring sources.
 deadbeef-plugins_src_configure() {
 	if [[ "${DEADBEEF_GUI}" == "yes" ]] ; then
 		if in_iuse gtk2 && in_iuse gtk3 && [[ -f "${S}/configure" ]] && grep -q "enable-gtk2" "${S}/configure" && grep -q "enable-gtk3" "${S}/configure"; then
@@ -40,6 +56,9 @@ deadbeef-plugins_src_configure() {
 	fi
 }
 
+# @FUNCTION: deadbeef-plugins_src_compile
+# @DESCRIPTION:
+# Doing checks for right command to compile sources and finally compiling sources.
 deadbeef-plugins_src_compile() {
 	local find_gtk2=`grep "gtk2:" "${S}/Makefile"`
 	local find_gtk3=`grep "gtk3:" "${S}/Makefile"`
@@ -67,11 +86,14 @@ deadbeef-plugins_src_compile() {
 	fi
 }
 
+# @FUNCTION: deadbeef-plugins_src_install
+# @DESCRIPTION:
+# Looking for a *.so deadbeef plugins and installs found plugins to corresponding deadbeef directory.
 deadbeef-plugins_src_install() {
-	local plugins=`find "${WORKDIR}" -name "*.so"`
+	local plugins=`find "${WORKDIR}" -name "*.so" -type f`
 	for plugin in ${plugins}
 		do
 			insinto "/usr/$(get_libdir)/deadbeef"
-			doins "${plugin}" || die
+			doins "${plugin}"
 		done
 }

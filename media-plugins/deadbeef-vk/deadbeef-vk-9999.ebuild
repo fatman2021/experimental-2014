@@ -4,7 +4,7 @@ EAPI="5"
 
 DEADBEEF_GUI="yes"
 
-inherit cmake-utils deadbeef-plugins git-2
+inherit cmake-utils deadbeef-plugins git-r3
 
 GITHUB_USERNAME="scorpp"
 GITHUB_REPOSITORY="db-vk"
@@ -16,7 +16,7 @@ EGIT_REPO_URI="git://github.com/${GITHUB_USERNAME}/${GITHUB_REPOSITORY}.git"
 LICENSE="GPL-2"
 KEYWORDS=""
 
-RDEPEND="dev-libs/json-glib
+RDEPEND+=" dev-libs/json-glib
 	media-sound/deadbeef[curl]"
 
 DEPEND="${RDEPEND}"

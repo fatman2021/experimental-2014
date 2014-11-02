@@ -1,6 +1,6 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/eclass/qt5-build.eclass,v 1.6 2014/09/16 14:18:43 pesa Exp $
+# $Header: /var/cvsroot/gentoo-x86/eclass/qt5-build.eclass,v 1.9 2014/10/09 16:55:28 pesa Exp $
 
 # @ECLASS: qt5-build.eclass
 # @MAINTAINER:
@@ -22,7 +22,7 @@ inherit eutils flag-o-matic multilib toolchain-funcs virtualx
 QT5_MINOR_VERSION=${PV#*.}
 QT5_MINOR_VERSION=${QT5_MINOR_VERSION%%.*}
 
-HOMEPAGE="https://qt-project.org/"
+HOMEPAGE="https://www.qt.io/ https://qt-project.org/"
 if [[ ${QT5_MINOR_VERSION} -ge 4 ]]; then
 	LICENSE="|| ( LGPL-2.1 LGPL-3 )"
 else
@@ -58,7 +58,7 @@ case ${PV} in
 		# official stable releases
 		QT5_BUILD_TYPE="release"
 		MY_P=${QT5_MODULE}-opensource-src-${PV}
-		SRC_URI="http://download.qt-project.org/official_releases/qt/${PV%.*}/${PV}/submodules/${MY_P}.tar.xz"
+		SRC_URI="http://download.qt-project.org/archive/qt/${PV%.*}/${PV}/submodules/${MY_P}.tar.xz"
 		S=${WORKDIR}/${MY_P}
 		;;
 esac
@@ -71,7 +71,8 @@ EGIT_REPO_URI=(
 
 IUSE="debug test"
 
-[[ ${QT5_BUILD_TYPE} == release && ${QT5_MINOR_VERSION} -le 3 ]] && RESTRICT="test"
+[[ ${PN} == qtwebkit ]] && RESTRICT+=" mirror" # bug 524584
+[[ ${QT5_BUILD_TYPE} == release && ${QT5_MINOR_VERSION} -le 3 ]] && RESTRICT+=" test" # bug 457182
 
 DEPEND="
 	dev-lang/perl
