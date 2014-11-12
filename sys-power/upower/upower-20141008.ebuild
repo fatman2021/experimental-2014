@@ -32,6 +32,7 @@ RDEPEND=">=dev-libs/dbus-glib-0.100
 	deprecated? ( >=sys-power/pm-utils-1.4.1-r2 )
 	doc? ( dev-util/gtk-doc )"
 DEPEND="${RDEPEND}
+	dev-libs/gobject-introspection-common
 	dev-libs/libxslt
 	app-text/docbook-xsl-stylesheets
 	dev-util/intltool
